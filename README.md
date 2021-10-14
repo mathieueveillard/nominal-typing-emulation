@@ -1,17 +1,52 @@
-# js-kata-starter
+# Nominal typing emulation
 
-Starter project for kata (Node, TypeScript, Jest)
+```ts
+const NumeratorSymbol = Symbol();
 
-## Installation
+interface Numerator {
+  symbol: typeof NumeratorSymbol;
+  value: number;
+}
 
-```shell
-git clone https://github.com/mathieueveillard/js-kata-starter.git
-cd js-kata-starter
-npm install
-```
+const DenominatorSymbol = Symbol();
 
-## Development
+interface Denominator {
+  symbol: typeof DenominatorSymbol;
+  value: number;
+}
 
-```shell
-npm test
+interface Fraction {
+  numerator: Numerator;
+  denominator: Denominator;
+}
+
+function createNumerator(value: number): Numerator {
+  return {
+    symbol: NumeratorSymbol,
+    value,
+  };
+}
+
+function createDenominator(value: number): Denominator {
+  if (value === 0) {
+    throw Error("0 is not a valid denominator.");
+  }
+  return {
+    symbol: DenominatorSymbol,
+    value,
+  };
+}
+
+function createFraction(numerator: Numerator, denominator: Denominator): Fraction {
+  return {
+    numerator,
+    denominator,
+  };
+}
+
+const numerator = createNumerator(0);
+
+const denominator = createDenominator(1);
+
+const fraction = createFraction(denominator, numerator);
 ```
