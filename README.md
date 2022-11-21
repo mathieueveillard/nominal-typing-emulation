@@ -1,33 +1,30 @@
 # Nominal typing emulation
 
 ```ts
+// Numerator
 const NumeratorSymbol = Symbol();
 
-interface Numerator {
+type Numerator = {
   symbol: typeof NumeratorSymbol;
   value: number;
-}
+};
 
-const DenominatorSymbol = Symbol();
-
-interface Denominator {
-  symbol: typeof DenominatorSymbol;
-  value: number;
-}
-
-interface Fraction {
-  numerator: Numerator;
-  denominator: Denominator;
-}
-
-function createNumerator(value: number): Numerator {
+const createNumerator = (value: number): Numerator => {
   return {
     symbol: NumeratorSymbol,
     value,
   };
-}
+};
 
-function createDenominator(value: number): Denominator {
+// Denominator
+const DenominatorSymbol = Symbol();
+
+type Denominator = {
+  symbol: typeof DenominatorSymbol;
+  value: number;
+};
+
+const createDenominator = (value: number): Denominator => {
   if (value === 0) {
     throw Error("0 is not a valid denominator.");
   }
@@ -35,18 +32,27 @@ function createDenominator(value: number): Denominator {
     symbol: DenominatorSymbol,
     value,
   };
-}
+};
 
-function createFraction(numerator: Numerator, denominator: Denominator): Fraction {
+// Fraction
+type Fraction = {
+  numerator: Numerator;
+  denominator: Denominator;
+};
+
+const createFraction = (numerator: Numerator, denominator: Denominator): Fraction => {
   return {
     numerator,
     denominator,
   };
-}
+};
 
 const numerator = createNumerator(0);
 
 const denominator = createDenominator(1);
 
+// @ts-expect-error
 const fraction = createFraction(denominator, numerator);
+
+export { createNumerator, createDenominator, createFraction };
 ```
