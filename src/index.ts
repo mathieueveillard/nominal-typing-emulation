@@ -1,37 +1,6 @@
-// Numerator
-const NumeratorSymbol = Symbol();
+import { createDenominator, Denominator } from "./Denominator";
+import { createNumerator, Numerator } from "./Numerator";
 
-type Numerator = {
-  symbol: typeof NumeratorSymbol;
-  value: number;
-};
-
-const createNumerator = (value: number): Numerator => {
-  return {
-    symbol: NumeratorSymbol,
-    value,
-  };
-};
-
-// Denominator
-const DenominatorSymbol = Symbol();
-
-type Denominator = {
-  symbol: typeof DenominatorSymbol;
-  value: number;
-};
-
-const createDenominator = (value: number): Denominator => {
-  if (value === 0) {
-    throw Error("0 is not a valid denominator.");
-  }
-  return {
-    symbol: DenominatorSymbol,
-    value,
-  };
-};
-
-// Fraction
 type Fraction = {
   numerator: Numerator;
   denominator: Denominator;
@@ -49,6 +18,6 @@ const numerator = createNumerator(0);
 const denominator = createDenominator(1);
 
 // @ts-expect-error
-const fraction = createFraction(denominator, numerator);
+createFraction(denominator, numerator);
 
 export { createNumerator, createDenominator, createFraction };
