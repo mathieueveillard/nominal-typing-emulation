@@ -1,5 +1,5 @@
-import { createDenominator, Denominator } from "./Denominator";
-import { createNumerator, Numerator } from "./Numerator";
+import createDenominator, { Denominator } from "./Denominator";
+import createNumerator, { Numerator } from "./Numerator";
 
 type Fraction = {
   numerator: Numerator;

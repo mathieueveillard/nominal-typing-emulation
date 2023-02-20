@@ -1,19 +1,17 @@
-const NumeratorSymbol = Symbol();
+import { Result, success } from "./util/Result";
 
-type Numerator = {
-  [NumeratorSymbol]: "Numerator";
+const NUMERATOR_SYMBOL = Symbol();
+
+export type Numerator = {
+  [NUMERATOR_SYMBOL]: "Numerator";
   value: number;
 };
 
-const createNumerator = (value: number): Numerator => {
-  return {
-    [NumeratorSymbol]: "Numerator",
+const createNumerator = (value: number): Result<Numerator> => {
+  return success({
+    [NUMERATOR_SYMBOL]: "Numerator",
     value,
-  };
+  });
 };
 
-const isNumerator = (numerator: Object): numerator is Numerator => {
-  return !!numerator[NumeratorSymbol];
-};
-
-export { Numerator, createNumerator, isNumerator };
+export default createNumerator;

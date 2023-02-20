@@ -1,22 +1,20 @@
-const DenominatorSymbol = Symbol();
+import { Result, error, success } from "./util/Result";
 
-type Denominator = {
-  [DenominatorSymbol]: "Denominator";
+const DENOMINATOR_SYMBOL = Symbol();
+
+export type Denominator = {
+  [DENOMINATOR_SYMBOL]: "Denominator";
   value: number;
 };
 
-const createDenominator = (value: number): Denominator => {
+const createDenominator = (value: number): Result<Denominator> => {
   if (value === 0) {
-    throw Error("0 is not a valid denominator.");
+    return error("0 is not a valid denominator.");
   }
-  return {
-    [DenominatorSymbol]: "Denominator",
+  return success({
+    [DENOMINATOR_SYMBOL]: "Denominator",
     value,
-  };
+  });
 };
 
-const isDenominator = (denominator: Object): denominator is Denominator => {
-  return !!denominator[DenominatorSymbol];
-};
-
-export { Denominator, createDenominator, isDenominator };
+export default createDenominator;
